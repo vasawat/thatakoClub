@@ -44,12 +44,12 @@ const style = {
 
 export default function ClubDetail(params) {  
 
-    const { isMobile, allStudentNotHaveClub, allTeacher, getAllStudentDontHaveClub, userHaveToken } = useContext(StudentContext);
+    const { allStudentNotHaveClub, allTeacher, getAllStudentDontHaveClub, userHaveToken } = useContext(StudentContext);
 
 
     const { clubID } = useParams();
 
-    let [loading, setLoading] = useState(true);
+    // let [loading, setLoading] = useState(true);
     const [clubData, setClubData] = useState({});
     const [stdData, setStdData] = useState([]);
     const [teacherData, setTeacherData] = useState([]);
@@ -71,7 +71,7 @@ export default function ClubDetail(params) {
 
     const onStudentSubmit = data => {
         handleCloseStd();
-        axios.post('http://localhost:5000/user/studentSelectClub', {selectStudent, clubName: clubData.clubName}).then((response) => {
+        axios.post(env.apiUrl +'/user/studentSelectClub', {selectStudent, clubName: clubData.clubName}).then((response) => {
             if (response.status === 200) {
                 getDataThisClub();
                 getAllStudentDontHaveClub();
@@ -94,7 +94,7 @@ export default function ClubDetail(params) {
 
     const onTeacherSubmit = data => {
         handleCloseTeacher();
-        axios.post('http://localhost:5000/user/teacherSelectClub', {selectTeacher, clubName: clubData.clubName}).then((response) => {
+        axios.post(env.apiUrl +'/user/teacherSelectClub', {selectTeacher, clubName: clubData.clubName}).then((response) => {
             if (response.status === 200) {
                 getDataThisClub();
                 Swal.fire({
@@ -129,9 +129,11 @@ export default function ClubDetail(params) {
         });
     };
 
+    
     useEffect(() => {
         getAllStudentDontHaveClub();
         getDataThisClub();
+    // eslint-disable-next-line
     }, []);
 
 

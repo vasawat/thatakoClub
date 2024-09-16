@@ -26,7 +26,7 @@ export default function AllStudentData(params) {
 
     let [loading, setLoading] = useState(true);
     let [studentName, setStudentName] = useState([]);
-    let [grade, setGrade] = useState(['ม.1/1', 'ม.1/6']);
+    let [grade, setGrade] = useState();
     let [searchStudent, setSearchStudent] = useState("");
     let [searchGrade, setSearchGrade] = useState("");
     let [showData, setShowData] = useState([]);
@@ -142,8 +142,11 @@ export default function AllStudentData(params) {
         }, 1000);
     };
 
+    
     useEffect(() => {
         getAllData();
+        setGrade(['ม.1/1', 'ม.1/6']);
+    // eslint-disable-next-line    
     }, []);
 
     return (

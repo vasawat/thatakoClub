@@ -23,6 +23,7 @@ export default function StudentPDF(props) {
             [{ text: 'เลขที่', bold: true }, { text: 'ชื่อ-นามสกุล', bold: true }, { text: 'รหัสนักเรียน', bold: true }, { text: 'ระดับชั้น', bold: true }, { text: 'ชมรม', bold: true }]
         ];
 
+        // eslint-disable-next-line
         data.map((student, index) => {
             tableBody.push([
                 student.number,

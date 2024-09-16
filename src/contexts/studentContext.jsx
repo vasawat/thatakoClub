@@ -92,6 +92,7 @@ export const StudentProvider = ({ children }) => {
 
 
 
+  
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     getAllData();
@@ -100,6 +101,7 @@ export const StudentProvider = ({ children }) => {
     setTimeout(() => {
       checkToken();
     }, 1800000);
+  // eslint-disable-next-line  
   }, []);
 
 

@@ -2,7 +2,6 @@ import "./Home.css";
 import { useContext } from "react";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-import env from "../assets/enviroments";
 
 import { StudentContext } from "../contexts/studentContext";
 export default function Home(params) {
