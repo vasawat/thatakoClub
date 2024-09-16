@@ -1,0 +1,18 @@
+.bg-dark {
+  background-color: #212529;
+}
+
+footer {
+  /* margin-top: 20%; */
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+.myfooter {
+  padding: 3rem 0 2rem 0;
+  text-align: center;
+}
+.footerlogo {
+  margin-right: 5px;
+  vertical-align: middle;
+}

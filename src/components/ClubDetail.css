@@ -1,0 +1,7 @@
+.textForTopicClub {
+  position: relative;
+  overflow: visible;
+  font-size: 50px;
+  cursor: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}

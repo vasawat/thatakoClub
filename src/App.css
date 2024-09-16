@@ -1,38 +1,180 @@
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300&family=Kanit:wght@300&display=swap");
+
+body {
+  font: 18px "Kanit", sans-serif; /* Kanit  Chakra Petch */
+  background: linear-gradient(
+    245.59deg,
+    rgb(120, 201, 244) 0%,
+    rgb(27, 27, 79) 80%,
+    rgb(19, 19, 57) 100%
+  );
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+main {
+  flex-grow: 1;
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+header, footer {
+  flex-shrink: 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+header {
+  height: fit-content;
+}
+
+footer {
+  height: fit-content; 
+}
+
+/* ---------------------------nav--------------------------- */
+
+/* ----------------------------------footer ----------------------------------   */
+
+/* ---------------------------------------------------------------------   */
+/* ----------------------------------show ----------------------------------   */
+
+.formlogin {
+  background-color: rgb(216, 219, 225);
+  margin-top: 10rem;
+  padding: 4rem;
+  width: 400px;
+  font-size: 1rem;
+}
+.LoginRegisbtn {
+  margin-top: 2rem;
+}
+.LoginRegisimg {
+  margin-bottom: 2rem;
+}
+.clublabel {
+  margin-top: 1rem;
+}
+
+/* -------------------------------------------------------------------- */
+/* ---------------------------------- show info student & teacher ----------------------------------   */
+
+.clubAddBtn {
+  margin-bottom: 2rem;
+}
+.clubtable {
+  margin-top: 10rem;
+}
+.studentTable {
+  margin-top: 3rem;
+}
+
+/* ----------------------------------- ClubPage ---------------------------------------------- */
+
+
+
+/* allClubPage */
+
+.imgTopLeftHead1 {
+  position: absolute;
+  top: -25%;
+  left: -5%;
+}
+
+/* --------------------------------------------------------------------   */
+
+@media (max-width: 426px) {
+  body {
+    font-size: 19px;
   }
-  to {
-    transform: rotate(360deg);
+  .mynav {
+    padding: 25px 15px;
+  }
+  .formlogin {
+    padding: 3rem;
+    width: 300px;
+  }
+  /* homepage */
+  .homePageSection {
+    margin-top: 10rem;
+    margin-left: 0;
+    display: block;
+  }
+  #imgHomePage {
+    width: 250px;
+    margin-top: 2rem;
+  }
+  .clubbtn {
+    font-size: 25px;
+    padding: 0.8rem 1.5rem;
+  }
+
+  /* clubpage */
+
+  .headTextClubPage {
+    margin-top: 5rem;
+    font-size: 18px;
+    cursor: auto;
+  }
+  .addMarginTopRow {
+    margin-top: 1rem;
+  }
+  .logoAllClubPage {
+    width: 50px;
+  }
+  .textForTopicClubPage {
+    margin-top: 1rem;
+    font-size: 10px;
+    color: aliceblue;
+  }
+  .mainClubPage {
+    margin: 0 3.5rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 5px;
+    border-width: 3px;
+    border-color: black;
+    border-style: solid;
+  }
+
+  /* AllClubPage */
+  .textForTopicClub {
+    position: relative;
+    overflow: visible;
+    font-size: 25px;
+    cursor: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .clubAddBtn {
+    margin-bottom: 2rem;
+  }
+  .clubtable {
+    margin-top: 10rem;
+  }
+  .studentTable {
+    margin-top: 3rem;
+  }
+  .clublabel {
+    margin-top: 1rem;
+  }
+  .imgTopLeftHead1 {
+    width: 30px;
+    position: absolute;
+    top: -25%;
+    left: -5%;
+  }
+  .buttonEditDeleteLogin {
+    font-size: 9px;
+    padding: 0.2rem 0.5rem;
+  }
+  .deleteWhenLoginMobile {
+    display: none;
   }
 }

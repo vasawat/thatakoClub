@@ -1,0 +1,13 @@
+.login {
+    width: 30%;
+    height: auto;
+}
+.register{
+    margin-top: 80px;
+    width: 50%;
+    height: auto;
+    padding: 20px;
+    background-color: beige;
+    border: 1px solid black;
+    border-radius: 10px;
+}

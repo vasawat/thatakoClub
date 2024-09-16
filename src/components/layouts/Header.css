@@ -1,0 +1,12 @@
+.bg-dark{
+    background-color: #212529;
+}
+
+
+.nav-item{
+  border-bottom: 2px solid transparent;
+  transition: all .55s;
+}
+.nav-item:hover{
+  border-bottom: 2px solid white;
+}
