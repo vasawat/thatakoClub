@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 
 import { StudentContext } from "../contexts/studentContext";
 
-import StudentPDF from "../components/widgets/studentPDF";
+import ClubPDF from './widgets/clubPDF';
 
 
 import Table from '@mui/material/Table';
@@ -44,7 +44,7 @@ const style = {
 
 export default function ClubDetail(params) {  
 
-    const { allStudentNotHaveClub, allTeacher, getAllStudentDontHaveClub, userHaveToken } = useContext(StudentContext);
+    const { allStudentNotHaveClub, getAllStudentDontHaveClub, userHaveToken, allTeacherNotHaveClub, getAllTeacherDontHaveClub } = useContext(StudentContext);
 
 
     const { clubID } = useParams();
@@ -97,6 +97,7 @@ export default function ClubDetail(params) {
         axios.post(env.apiUrl +'/user/teacherSelectClub', {selectTeacher, clubName: clubData.clubName}).then((response) => {
             if (response.status === 200) {
                 getDataThisClub();
+                getAllTeacherDontHaveClub();
                 Swal.fire({
                     icon: 'success',
                     title: 'เลือกชมรมสําเร็จ',
@@ -119,6 +120,51 @@ export default function ClubDetail(params) {
     /////////////////////
 
 
+    const handleDeleteTeacherFromClub = (id) => {
+        Swal.fire({
+            title: "คุณต้องการลบข้อมูลนี้หรือไม่",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#8C8C8C",
+            confirmButtonText: "ยืนยัน",
+            cancelButtonText: "ยกเลิก",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.post(env.apiUrl +`/club/deleteTeacherFromClub/${id}`).then((res) => {
+                if (res.status === 200) {
+                    Swal.fire("ลบเรียบร้อย", "", "success");
+                    getDataThisClub();
+                }else {
+                    Swal.fire(res.data.message, "", "error");
+                }
+                })
+            }
+        });
+    }
+
+    const handleDeleteStudentFromClub = (id) => {
+        Swal.fire({
+            title: "คุณต้องการลบข้อมูลนี้หรือไม่",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#8C8C8C",
+            confirmButtonText: "ยืนยัน",
+            cancelButtonText: "ยกเลิก",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.post(env.apiUrl +`/club/deleteStudentFromClub/${id}`).then((res) => {
+                if (res.status === 200) {
+                    Swal.fire("ลบเรียบร้อย", "", "success");
+                    getDataThisClub();
+                }else {
+                    Swal.fire(res.data.message, "", "error");
+                }
+                })
+            }
+        });
+    }
 
     const getDataThisClub = () => {
         axios.post(env.apiUrl +`/club/getUserByClub/${clubID}`).then((response) => {
@@ -177,7 +223,7 @@ export default function ClubDetail(params) {
                         <p className="text-3xl cursor-auto bg-dark text-light py-3 px-5 text-white">เพิ่มครู</p>
                         <Autocomplete
                             disablePortal
-                            options={allTeacher}
+                            options={allTeacherNotHaveClub}
                             getOptionLabel={(option) => `ครู ${option.firstName} ${option?.lastName}`}
                             onChange={(event, newValue) => {
                                 setSelectTeacher(newValue);
@@ -214,6 +260,8 @@ export default function ClubDetail(params) {
                             }}
                             renderInput={(params) => <TextField {...params} label="นักเรียน" />}
                         />
+                        <p className='text-sm text-[red]'>* หากนักเรียนเลือกแล้ว จะไม่สามารถเปลี่ยนชมรมได้</p>
+                        <p className='text-sm text-[red]'>* มีปัญหาติดต่อครู xxx</p>
                         <Button type="submit" variant="contained">บันทึก</Button>
                     </Box>
                 </Modal>
@@ -225,7 +273,7 @@ export default function ClubDetail(params) {
                             <Button onClick={handleOpenTeacher} variant="contained">เพิ่มครู</Button>
                             <div>
                                 {stdData.length > 0 ? (
-                                <StudentPDF data={stdData} />
+                                <ClubPDF data={stdData} teacherData={teacherData} clubName={clubData.clubName}/>
                                 ) : (
                                 <p>กำลังโหลดข้อมูล...</p>
                                 )}
@@ -240,6 +288,7 @@ export default function ClubDetail(params) {
                         <TableHead>
                         <TableRow>
                             <TableCell align="left">ครูประจำชมรม</TableCell>
+                            {userHaveToken && <TableCell align="center"></TableCell>}
                         </TableRow>
                         </TableHead>
                         <TableBody>
@@ -249,6 +298,7 @@ export default function ClubDetail(params) {
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                             <TableCell align="left">{row.firstName} {row.lastName}</TableCell>
+                            {userHaveToken && <TableCell align="center"><Button variant="contained" color="error" onClick={() => {handleDeleteTeacherFromClub(row._id)}}>ลบ</Button></TableCell>}
                             </TableRow>
                         ))}
                         </TableBody>
@@ -263,6 +313,7 @@ export default function ClubDetail(params) {
                             <TableCell align="left">ชื่อ</TableCell>
                             <TableCell align="center">เลขที่</TableCell>
                             <TableCell align="center">ระดับชั้น</TableCell>
+                            {userHaveToken && <TableCell align="center"></TableCell>}
                         </TableRow>
                         </TableHead>
                         <TableBody>
@@ -274,6 +325,7 @@ export default function ClubDetail(params) {
                             <TableCell align="left">{row.preface} {row.firstName} {row.lastName}</TableCell>
                             <TableCell align="center">{row.number}</TableCell>
                             <TableCell align="center">{row.grade}</TableCell>
+                            {userHaveToken && <TableCell align="center"><Button variant="contained" color="error" onClick={() => {handleDeleteStudentFromClub(row._id)}}>ลบ</Button></TableCell>}
                             </TableRow>
                         ))}
                         </TableBody>

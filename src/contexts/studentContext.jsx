@@ -17,6 +17,7 @@ export const StudentProvider = ({ children }) => {
   const [isMobile, setIsMobile] = useState()
 
   const [allStudentNotHaveClub, setAllStudentNotHaveClub] = useState([]);
+  const [allTeacherNotHaveClub, setAllTeacherNotHaveClub] = useState([]);
   const [allStudent, setAllStudent] = useState([]);
   const [allTeacher, setAllTeacher] = useState([]);
 
@@ -47,6 +48,17 @@ export const StudentProvider = ({ children }) => {
       .get(env.apiUrl +"/user/getAllStudentDontHaveClub")
       .then((res) => {
           setAllStudentNotHaveClub(res.data.student);
+      })
+      .catch((err) => {
+          console.error("Error fetching data:", err);
+      });
+    };
+
+    const getAllTeacherDontHaveClub = () => {
+      axios
+      .get(env.apiUrl +"/user/getAllTeacherDontHaveClub")
+      .then((res) => {
+          setAllTeacherNotHaveClub(res.data.teacher);
       })
       .catch((err) => {
           console.error("Error fetching data:", err);
@@ -97,6 +109,7 @@ export const StudentProvider = ({ children }) => {
     window.addEventListener("resize", handleResize);
     getAllData();
     getAllStudentDontHaveClub();
+    getAllTeacherDontHaveClub();
     checkToken();
     setTimeout(() => {
       checkToken();
@@ -113,6 +126,8 @@ export const StudentProvider = ({ children }) => {
       getAllData,
       allStudentNotHaveClub,
       getAllStudentDontHaveClub,
+      allTeacherNotHaveClub,
+      getAllTeacherDontHaveClub,
       allStudent,
       allTeacher,
       setUserHaveToken,
