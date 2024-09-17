@@ -107,6 +107,7 @@ export const StudentProvider = ({ children }) => {
   
   useEffect(() => {
     window.addEventListener("resize", handleResize);
+    handleResize();
     getAllData();
     getAllStudentDontHaveClub();
     getAllTeacherDontHaveClub();

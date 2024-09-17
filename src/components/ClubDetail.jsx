@@ -71,7 +71,7 @@ export default function ClubDetail(params) {
 
     const onStudentSubmit = data => {
         handleCloseStd();
-        axios.post(env.apiUrl +'/user/studentSelectClub', {selectStudent, clubName: clubData.clubName}).then((response) => {
+        axios.post(env.apiUrl +'/club/studentSelectClub', {selectStudent, clubName: clubData.clubName}).then((response) => {
             if (response.status === 200) {
                 getDataThisClub();
                 getAllStudentDontHaveClub();
@@ -94,7 +94,7 @@ export default function ClubDetail(params) {
 
     const onTeacherSubmit = data => {
         handleCloseTeacher();
-        axios.post(env.apiUrl +'/user/teacherSelectClub', {selectTeacher, clubName: clubData.clubName}).then((response) => {
+        axios.post(env.apiUrl +'/club/teacherSelectClub', {selectTeacher, clubName: clubData.clubName}).then((response) => {
             if (response.status === 200) {
                 getDataThisClub();
                 getAllTeacherDontHaveClub();
