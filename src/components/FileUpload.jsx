@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import axios from "axios";
 import env from "../assets/enviroments";
-
+import * as XLSX from "xlsx";
 
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
@@ -10,12 +10,6 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 
 import Swal from 'sweetalert2';
 
@@ -33,29 +27,12 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-    },
-  },
-};
-
-
-
 export default function FileUpload(params) {
 
     let [file, setFile] = useState([]);
     let [fileTeacher, setFileTeacher] = useState([]);
     let [loading, setLoading] = useState(false);
 
-    const [grade, setGrade] = useState('');
-
-    const handleChangeGrade = (event) => {
-        setGrade(event.target.value);
-    };
 
     const handleUpload = () => {
         setLoading(true);
@@ -63,7 +40,6 @@ export default function FileUpload(params) {
         formData.append("file", file);
 
         formData.append("additionalData", JSON.stringify({
-            grade: grade,
             role: "นักเรียน",
         }));
 
@@ -112,6 +88,18 @@ export default function FileUpload(params) {
         });
     };
 
+    const handleDownloadTemplate = () => {
+        const data = [
+            ["number", "code", "Preface", "firstName", "lastName", "grade"]
+        ];
+
+        const worksheet = XLSX.utils.aoa_to_sheet(data);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Template");
+
+        XLSX.writeFile(workbook, "templateClub.xlsx");
+    };
+
 
     return (
         <>
@@ -127,33 +115,7 @@ export default function FileUpload(params) {
 
                     <div className='bg-slate-200 p-5 rounded '>
                         <div className='flex gap-10'>
-                            <Box sx={{ minWidth: 120 }}>
-                                <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label">ระดับชั้น</InputLabel>
-                                    <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={grade}
-                                    label="ระดับชั้น"
-                                    onChange={handleChangeGrade}
-                                    MenuProps={MenuProps}
-                                    >
-                                        <MenuItem value={'ม.1/1'}>ม.1/1</MenuItem>
-                                        <MenuItem value={'ม.1/2'}>ม.1/2</MenuItem>
-                                        <MenuItem value={'ม.1/3'}>ม.1/3</MenuItem>
-                                        <MenuItem value={'ม.1/4'}>ม.1/4</MenuItem>
-                                        <MenuItem value={'ม.1/5'}>ม.1/5</MenuItem>
-                                        <MenuItem value={'ม.1/6'}>ม.1/6</MenuItem>
-                                        <MenuItem value={'ม.2/1'}>ม.2/1</MenuItem>
-                                        <MenuItem value={'ม.2/2'}>ม.2/2</MenuItem>
-                                        <MenuItem value={'ม.2/3'}>ม.2/3</MenuItem>
-                                        <MenuItem value={'ม.2/4'}>ม.2/4</MenuItem>
-                                        <MenuItem value={'ม.2/5'}>ม.2/5</MenuItem>
-                                        <MenuItem value={'ม.2/6'}>ม.2/6</MenuItem>
-                                    </Select>
-                                </FormControl>
-                            </Box>
-
+                            <Button onClick={handleDownloadTemplate} variant="contained">Dowload Template</Button>
                             <Button
                                 component="label"
                                 variant="contained"

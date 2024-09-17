@@ -19,9 +19,6 @@ export default function ClubPDF(props) {
     const { data, teacherData, clubName } = props;
 
     function printPDF() {
-        const tableBody = [
-            [{ text: 'เลขที่', bold: true }, { text: 'ชื่อ-นามสกุล', bold: true }, { text: 'รหัสนักเรียน', bold: true }, { text: 'ระดับชั้น', bold: true }, { text: 'ชมรม', bold: true }]
-        ];
 
         const teacherBody = [
             [{ text: 'ครูประจำชมรม', bold: true }]
@@ -34,14 +31,35 @@ export default function ClubPDF(props) {
             ]);
         }); 
 
+        const tableBody = [
+            [
+                { text: 'ลำดับ', bold: true }, 
+                { text: 'รหัสนักเรียน', bold: true }, 
+                { text: 'ชื่อ-นามสกุล', bold: true },
+                { text: 'ระดับชั้น', bold: true },
+                { text: 'เลขที่', bold: true }, 
+                { text: '1', bold: true }, 
+                { text: '2', bold: true }, 
+                { text: '3', bold: true }, 
+                { text: '4', bold: true }, 
+                { text: '5', bold: true },
+                { text: '6', bold: true }, 
+                { text: '7', bold: true }, 
+                { text: '8', bold: true }, 
+                { text: '9', bold: true }, 
+                { text: '10', bold: true }
+            ]
+        ];
+
         // eslint-disable-next-line
         data.map((student, index) => {
             tableBody.push([
-                student.number,
-                `${student.preface} ${student.firstName} ${student.lastName}`,
+                index + 1,
                 student.code,
+                `${student.preface} ${student.firstName} ${student.lastName}`,
                 student.grade,
-                student.club
+                student.number,
+                '', '', '', '', '', '', '', '', '', '', 
             ]);
         });
 
@@ -50,7 +68,7 @@ export default function ClubPDF(props) {
                 { text: `ชมรม ${clubName}`, fontSize: 24, bold: true, margin: [0, 0, 0, 10] },
                 {
                     table: {
-                        headerRows: 1, // หัวตาราง
+                        headerRows: 1,
                         body: teacherBody
                     },
                     margin: [0, 0, 0, 10]
@@ -58,14 +76,15 @@ export default function ClubPDF(props) {
                 { text: 'รายชื่อนักเรียน', fontSize: 18, bold: true, margin: [0, 0, 0, 5] },
                 {
                     table: {
-                        headerRows: 1, // หัวตาราง
-                        body: tableBody // ข้อมูลในตาราง
+                        headerRows: 1,
+                        widths: [23 , 48, 130, 40, 22, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12],
+                        body: tableBody
                     }
                 }
             ],
             defaultStyle: {
                 font: "THSarabunNew",
-                fontSize: 15
+                fontSize: 14
             }
         };
 

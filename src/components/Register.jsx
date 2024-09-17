@@ -9,26 +9,34 @@ import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Button from "@mui/material/Button";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
 import axios from "axios";
 import env from "../assets/enviroments";
+import { useNavigate } from "react-router-dom";
 
-// import Swal from "sweetalert2";
+import Swal from "sweetalert2";
 
 export default function Register(params) {
-  //form
+
+  const navigate = useNavigate();
+  
   const {
     register: registerUser,
     handleSubmit,
+    reset: resetUser,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    axios.post(env.apiUrl +"/auth/create", { ...data, role });
-    console.log({ ...data, role });
+    console.log(data);
+    axios.post(env.apiUrl +"/auth/create", data ).then((res) => {
+      if (res.status === 200) {
+        Swal.fire("ลงทะเบียนสําเร็จ", "", "success");
+        resetUser();
+        navigate("/");
+      } else {
+        Swal.fire(res.data.message, "", "error");
+      }
+    })
   };
 
   //password
@@ -42,13 +50,6 @@ export default function Register(params) {
 
   const handleMouseUpPassword = (event) => {
     event.preventDefault();
-  };
-
-  //role
-  const [role, setRole] = useState("student");
-
-  const handleRoleChange = (event) => {
-    setRole(event.target.value);
   };
 
   return (
@@ -98,35 +99,13 @@ export default function Register(params) {
               />
             </FormControl>
             <TextField
-              error={errors.code ? true : false}
-              {...registerUser("code", { required: true })}
-              id="outlined-basic"
-              label="code"
-              variant="outlined"
-              fullWidth
-            />
-            <TextField
-              {...registerUser("address")}
-              id="outlined-basic"
-              label="address"
-              variant="outlined"
-              fullWidth
-            />
-            <TextField
               {...registerUser("phone")}
               id="outlined-basic"
               label="phone"
               variant="outlined"
               fullWidth
             />
-            <TextField
-              {...registerUser("club")}
-              id="outlined-basic"
-              label="club"
-              variant="outlined"
-              fullWidth
-            />
-            <FormControl>
+            {/* <FormControl>
               <RadioGroup
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
@@ -151,7 +130,7 @@ export default function Register(params) {
                   label="ครู"
                 />
               </RadioGroup>
-            </FormControl>
+            </FormControl> */}
           </div>
 
           <div>
