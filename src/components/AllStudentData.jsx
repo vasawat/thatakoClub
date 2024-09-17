@@ -68,7 +68,7 @@ export default function AllStudentData(params) {
             cancelButtonText: "ยกเลิก",
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:5000/user/deleteAllUsers/${id}`).then((res) => {
+                axios.delete(env.apiUrl +`/user/deleteAllUsers/${id}`).then((res) => {
                 if (res.status === 200) {
                     Swal.fire("ลบเรียบร้อย", "", "success");
                     getAllData();
@@ -83,7 +83,7 @@ export default function AllStudentData(params) {
     }
     const onSubmitEdit = (data) => {
         setOpenEdit(false);
-        axios.put(`http://localhost:5000/user/updateAllUsers/${selectData._id}`, data).then((res) => {
+        axios.put(env.apiUrl +`/user/updateAllUsers/${selectData._id}`, data).then((res) => {
             if (res.status === 200) {
                 Swal.fire("แก้ไขเรียบร้อย", "", "success");
                 getAllData();

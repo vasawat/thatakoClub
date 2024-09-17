@@ -121,7 +121,7 @@ export default function ClubDetail(params) {
 
 
     const getDataThisClub = () => {
-        axios.post(`http://localhost:5000/club/getUserByClub/${clubID}`).then((response) => {
+        axios.post(env.apiUrl +`/club/getUserByClub/${clubID}`).then((response) => {
             setClubData(response.data.clubData);
             setStdData(response.data.student);
             setTeacherData(response.data.teacher);
