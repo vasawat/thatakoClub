@@ -2,10 +2,7 @@ import { useParams } from 'react-router-dom';
 import './ClubDetail.css'
 import env from "../assets/enviroments";
 
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import TextField from '@mui/material/TextField';
+import { useNavigate } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
 import axios from 'axios';
@@ -17,7 +14,10 @@ import { StudentContext } from "../contexts/studentContext";
 
 import ClubPDF from './widgets/clubPDF';
 
-
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
+import TextField from '@mui/material/TextField';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -26,6 +26,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Autocomplete from '@mui/material/Autocomplete';
+
 
 const style = {
         position: 'absolute',
@@ -43,6 +44,8 @@ const style = {
 };
 
 export default function ClubDetail(params) {  
+
+      const navigate = useNavigate();
 
     const { allStudentNotHaveClub, getAllStudentDontHaveClub, userHaveToken, allTeacherNotHaveClub, getAllTeacherDontHaveClub } = useContext(StudentContext);
 
@@ -66,8 +69,35 @@ export default function ClubDetail(params) {
     const handleOpenTeacher = () => setOpenTeacher(true);
     const handleCloseTeacher = () => setOpenTeacher(false);
 
+    const [openEditClub,setOpenEditClub]= useState(false);
+    const handleOpenEditClub = () => setOpenEditClub(true);
+    const handleCloseEditClub = () => setOpenEditClub(false);
+
     const { handleSubmit:studentSubmit } = useForm();
     const { handleSubmit:teacherSubmit } = useForm();
+    const { handleSubmit:clubSubmit, register:editClub, formState: { errors: editClubError } } = useForm();
+
+    const onEditSubmit = data => {
+        handleCloseEditClub();
+        axios.post(env.apiUrl +`/club/updateClub/${clubData.clubID}`, data).then((response) => {
+            if (response.status === 200) {
+                getDataThisClub();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'แก้ไขชมรมสําเร็จ',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'แก้ไขชมรมไม่สําเร็จ',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        })
+    }
 
     const onStudentSubmit = data => {
         handleCloseStd();
@@ -117,8 +147,32 @@ export default function ClubDetail(params) {
     };
 
 
+
     /////////////////////
 
+    const handleDeleteClub = () => {
+        Swal.fire({
+            title: "คุณต้องการลบข้อมูลนี้หรือไม่",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#8C8C8C",
+            confirmButtonText: "ยืนยัน",
+            cancelButtonText: "ยกเลิก",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.post(env.apiUrl +`/club/deleteClub/${clubData.clubID}`).then((res) => {
+                if (res.status === 200) {
+                    navigate("/selectClub");
+                    Swal.fire("ลบเรียบร้อย", "", "success");
+                    
+                }else {
+                    Swal.fire(res.data.message, "", "error");
+                }
+                })
+            }
+        })
+    }
 
     const handleDeleteTeacherFromClub = (id) => {
         Swal.fire({
@@ -208,6 +262,42 @@ export default function ClubDetail(params) {
             <div className='flex flex-col justify-center items-center w-2/3'>
 
                 <Modal
+                    open={openEditClub}
+                    onClose={handleCloseEditClub}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Box
+                        component="form"
+                        sx={style}
+                        noValidate
+                        autoComplete="off"
+                        onSubmit={clubSubmit(onEditSubmit)}
+                    >
+                        <p className="text-3xl cursor-auto bg-dark text-light py-3 px-5 text-white">แก้ไขชุมนุม</p>
+                        {/* <TextField
+                            {...editClub("clubName", { required: true })}
+                            error={editClubError.clubName ? true : false}
+                            sx={{ my: 4 }}
+                            label="ชื่อชุมนุม"
+                            variant="outlined"
+                            defaultValue={clubData.clubName}
+                            fullWidth
+                        /> */}
+                        <TextField
+                            {...editClub("maxStudents", { required: true })}
+                            error={editClubError.maxStudents ? true : false}
+                            sx={{ my: 4 }}
+                            label="เต็มกี่คน"
+                            variant="outlined"
+                            defaultValue={clubData.maxStudents}
+                            fullWidth
+                        />
+                        <Button type="submit" variant="contained">บันทึก</Button>
+                    </Box>
+                </Modal>
+
+                <Modal
                     open={openTeacher}
                     onClose={handleCloseTeacher}
                     aria-labelledby="modal-modal-title"
@@ -233,9 +323,6 @@ export default function ClubDetail(params) {
                         <Button type="submit" variant="contained">บันทึก</Button>
                     </Box>
                 </Modal>
-
-                
-                
 
                 <Modal
                     open={openStd}
@@ -267,10 +354,12 @@ export default function ClubDetail(params) {
                 </Modal>
 
                 <div className='flex p-4 gap-4'>
-                    <Button onClick={handleOpenStd} variant="contained" disabled={clubData.currentStudents >= clubData.maxStudents}>สมัครเข้าชมรม</Button>
+                    <Button onClick={handleOpenStd} variant="contained" disabled={clubData.currentStudents >= clubData.maxStudents}>สมัครเข้าชุมนุม</Button>
                     {userHaveToken && (
                         <>
                             <Button onClick={handleOpenTeacher} variant="contained">เพิ่มครู</Button>
+                            <Button onClick={handleOpenEditClub} variant="contained">แก้ไขชุมนุม</Button>
+                            <Button onClick={handleDeleteClub} variant="contained" color="error">ลบชุมนุม</Button>
                             <div>
                                 {stdData.length > 0 ? (
                                 <ClubPDF data={stdData} teacherData={teacherData} clubName={clubData.clubName}/>
