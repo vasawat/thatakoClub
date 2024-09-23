@@ -1,6 +1,6 @@
 # reinstall pdfmake
 npm uninstall pdfmake --force
 npm install pdfmake --force
-cp -r ./font_pdfmake/ ./node_modules/pdfmake
+cp -r ./src/assets/fonts/ ./node_modules/pdfmake/examples/fonts
 cd node_modules/pdfmake/
 node build-vfs.js "./examples/fonts"
