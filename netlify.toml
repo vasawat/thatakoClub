@@ -1,5 +1,5 @@
 [build]
-  command = "npm install --force && mkdir -p ./node_modules/pdfmake/examples/fonts/ && cp ./src/assets/fonts/THSarabunNew.ttf ./node_modules/pdfmake/examples/fonts/ && node ./node_modules/pdfmake/build-vfs.js ./node_modules/pdfmake/examples/fonts/THSarabunNew.ttf && npm run build"
+  command = "npm install --force && mkdir -p ./node_modules/pdfmake/examples/fonts/ && cp ./src/assets/fonts/THSarabunNew.ttf ./node_modules/pdfmake/examples/fonts/ && node ./node_modules/pdfmake/build-vfs.js ./node_modules/pdfmake/examples/fonts && npm run build"
   publish = "build"
 
 [[redirects]]
