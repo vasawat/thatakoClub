@@ -5,20 +5,41 @@ import pdfFonts from "pdfmake/build/vfs_fonts";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
-pdfMake.fonts = {
-  THSarabunNew: {
-    normal: 'THSarabunNew.ttf',
-    bold: 'THSarabunNew Bold.ttf',
-    italics: 'THSarabunNew Italic.ttf',
-    bolditalics: 'THSarabunNew BoldItalic.ttf'
-  }
-}
+// pdfMake.fonts = {
+//   THSarabunNew: {
+//     normal: 'THSarabunNew.ttf',
+//     bold: 'THSarabunNew Bold.ttf',
+//     italics: 'THSarabunNew Italic.ttf',
+//     bolditalics: 'THSarabunNew BoldItalic.ttf'
+//   }
+// }
 
 export default function StudentPDF(props) {
 
     const { data } = props;
 
-    function printPDF() {
+    const loadFont = async (fontUrl) => {
+        const fontArrayBuffer = await fetch(fontUrl).then(res => res.arrayBuffer());
+        return new Uint8Array(fontArrayBuffer);
+    };
+
+
+    async function printPDF() {
+
+        const thSarabunNormal = await loadFont('../../assets/fonts/THSarabunNew.ttf');
+        const thSarabunBold = await loadFont('../../assets/fonts/THSarabunNew-Bold.ttf');
+
+        // เพิ่มฟอนต์ลงใน pdfMake
+        pdfMake.vfs['THSarabunNew.ttf'] = thSarabunNormal;
+        pdfMake.vfs['THSarabunNew-Bold.ttf'] = thSarabunBold;
+
+        pdfMake.fonts = {
+            THSarabunNew: {
+            normal: 'THSarabunNew.ttf',
+            bold: 'THSarabunNew Bold.ttf',
+            }
+        };
+
         const tableBody = [
             [{ text: 'เลขที่', bold: true }, { text: 'ชื่อ-นามสกุล', bold: true }, { text: 'รหัสนักเรียน', bold: true }, { text: 'ระดับชั้น', bold: true }, { text: 'ชมรม', bold: true }]
         ];
