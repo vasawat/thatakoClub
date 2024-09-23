@@ -1,5 +1,5 @@
 [build]
-  command = "npm install --force && cp -r ./src/assets/fonts/ ./node_modules/pdfmake/examples/fonts/ && node ./node_modules/pdfmake/build-vfs.js ./node_modules/pdfmake/examples/fonts && npm run build"
+  command = "npm install --force && mkdir -p ./node_modules/pdfmake/examples/fonts/ && cp -r ./src/assets/fonts/ ./node_modules/pdfmake/examples/fonts/ && node ./node_modules/pdfmake/build-vfs.js ./node_modules/pdfmake/examples/fonts && npm run build"
   publish = "build"
 
 [[redirects]]
