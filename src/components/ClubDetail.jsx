@@ -52,13 +52,10 @@ export default function ClubDetail(params) {
 
     const { clubID } = useParams();
 
-    // let [loading, setLoading] = useState(true);
     const [clubData, setClubData] = useState({});
     const [stdData, setStdData] = useState([]);
     const [teacherData, setTeacherData] = useState([]);
 
-
-    // modal
     const [openStd, setOpenStd] = useState(false);
     const [selectStudent, setSelectStudent] = useState({});
     const handleOpenStd = () => setOpenStd(true);
@@ -145,10 +142,6 @@ export default function ClubDetail(params) {
         })
         console.log(selectTeacher);
     };
-
-
-
-    /////////////////////
 
     const handleDeleteClub = () => {
         Swal.fire({
@@ -275,15 +268,6 @@ export default function ClubDetail(params) {
                         onSubmit={clubSubmit(onEditSubmit)}
                     >
                         <p className="text-3xl cursor-auto bg-dark text-light py-3 px-5 text-white">แก้ไขชุมนุม</p>
-                        {/* <TextField
-                            {...editClub("clubName", { required: true })}
-                            error={editClubError.clubName ? true : false}
-                            sx={{ my: 4 }}
-                            label="ชื่อชุมนุม"
-                            variant="outlined"
-                            defaultValue={clubData.clubName}
-                            fullWidth
-                        /> */}
                         <TextField
                             {...editClub("maxStudents", { required: true })}
                             error={editClubError.maxStudents ? true : false}
@@ -353,24 +337,58 @@ export default function ClubDetail(params) {
                     </Box>
                 </Modal>
 
-                <div className='flex p-4 gap-4'>
-                    <Button onClick={handleOpenStd} variant="contained" disabled={clubData.currentStudents >= clubData.maxStudents}>สมัครเข้าชุมนุม</Button>
-                    {userHaveToken && (
-                        <>
-                            <Button onClick={handleOpenTeacher} variant="contained">เพิ่มครู</Button>
-                            <Button onClick={handleOpenEditClub} variant="contained">แก้ไขชุมนุม</Button>
-                            <Button onClick={handleDeleteClub} variant="contained" color="error">ลบชุมนุม</Button>
-                            <div>
-                                {stdData.length > 0 ? (
-                                <ClubPDF data={stdData} teacherData={teacherData} clubName={clubData.clubName}/>
-                                ) : (
-                                <p>กำลังโหลดข้อมูล...</p>
-                                )}
-                            </div>
-                        </>
-                        
-                    )}
-                </div>
+                {isMobile ? (
+                    <>
+                        <div className='flex p-2 gap-2'>
+                            <Button onClick={handleOpenStd} variant="contained" disabled={clubData.currentStudents >= clubData.maxStudents}>สมัครเข้าชุมนุม</Button>
+                            {userHaveToken && (
+                                <>
+                                    <Button onClick={handleOpenTeacher} variant="contained">เพิ่มครู</Button>
+                                    <div>
+                                        {stdData.length > 0 ? (
+                                        <ClubPDF data={stdData} teacherData={teacherData} clubName={clubData.clubName}/>
+                                        ) : (
+                                        <p>กำลังโหลดข้อมูล...</p>
+                                        )}
+                                    </div>
+                                </>
+                                
+                            )}
+                        </div>
+                        <div className='flex p-2 gap-2'>
+                            <Button onClick={handleOpenStd} variant="contained" disabled={clubData.currentStudents >= clubData.maxStudents}>สมัครเข้าชุมนุม</Button>
+                            {userHaveToken && (
+                                <>
+                                    <Button onClick={handleOpenEditClub} variant="contained">แก้ไขชุมนุม</Button>
+                                    <Button onClick={handleDeleteClub} variant="contained" color="error">ลบชุมนุม</Button>
+                                </>
+                                
+                            )}
+                        </div>
+                    </>
+                ):(
+                    <>
+                        <div className='flex p-4 gap-4'>
+                            <Button onClick={handleOpenStd} variant="contained" disabled={clubData.currentStudents >= clubData.maxStudents}>สมัครเข้าชุมนุม</Button>
+                            {userHaveToken && (
+                                <>
+                                    <Button onClick={handleOpenTeacher} variant="contained">เพิ่มครู</Button>
+                                    <Button onClick={handleOpenEditClub} variant="contained">แก้ไขชุมนุม</Button>
+                                    <Button onClick={handleDeleteClub} variant="contained" color="error">ลบชุมนุม</Button>
+                                    <div>
+                                        {stdData.length > 0 ? (
+                                        <ClubPDF data={stdData} teacherData={teacherData} clubName={clubData.clubName}/>
+                                        ) : (
+                                        <p>กำลังโหลดข้อมูล...</p>
+                                        )}
+                                    </div>
+                                </>
+                                
+                            )}
+                        </div>
+                    </>
+                )}
+
                 
                 <TableContainer component={Paper} sx={{ maxWidth: 500, overflow: 'auto' , mb: 4 }}>
                     <Table  aria-label="simple table">
