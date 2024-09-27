@@ -412,31 +412,54 @@ export default function ClubDetail(params) {
                 </TableContainer>
 
 
-                <TableContainer component={Paper} sx={{ maxWidth: 500, overflow: 'auto' }}>
-                    <Table  aria-label="simple table">
-                        <TableHead>
-                        <TableRow>
-                            <TableCell align="left">ชื่อ</TableCell>
-                            <TableCell align="center">เลขที่</TableCell>
-                            <TableCell align="center">ระดับชั้น</TableCell>
-                            {userHaveToken && <TableCell align="center"></TableCell>}
-                        </TableRow>
-                        </TableHead>
-                        <TableBody>
-                        {stdData.map((row) => (
-                            <TableRow
-                            key={row._id}
-                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            >
-                            <TableCell align="left">{row.preface} {row.firstName} {row.lastName}</TableCell>
-                            <TableCell align="center">{row.number}</TableCell>
-                            <TableCell align="center">{row.grade}</TableCell>
-                            {userHaveToken && <TableCell align="center"><Button variant="contained" color="error" onClick={() => {handleDeleteStudentFromClub(row._id)}}>ลบ</Button></TableCell>}
+                {isMobile ? (
+                    <TableContainer component={Paper} sx={{ maxWidth: 500, overflow: 'auto' }}>
+                        <Table  aria-label="simple table">
+                            <TableBody>
+                            {stdData.map((row) => (
+                                <TableRow
+                                key={row._id}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                >
+                                <TableCell align="left">
+                                    ชื่อ: {row.preface} {row.firstName} {row.lastName} <br />
+                                    เลขที่: {row.number} <br />
+                                    ระดับชั้น: {row.grade} 
+                                </TableCell>
+                                {userHaveToken && <TableCell sx={{ width: 20 }} align="center"><Button variant="contained" color="error" onClick={() => {handleDeleteStudentFromClub(row._id)}}>ลบ</Button></TableCell>}
+                                </TableRow>
+                            ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                ):(
+                    <TableContainer component={Paper} sx={{ maxWidth: 500, overflow: 'auto' }}>
+                        <Table  aria-label="simple table">
+                            <TableHead>
+                            <TableRow>
+                                <TableCell align="left">ชื่อ</TableCell>
+                                <TableCell align="center">เลขที่</TableCell>
+                                <TableCell align="center">ระดับชั้น</TableCell>
+                                {userHaveToken && <TableCell align="center"></TableCell>}
                             </TableRow>
-                        ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+                            </TableHead>
+                            <TableBody>
+                            {stdData.map((row) => (
+                                <TableRow
+                                key={row._id}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                >
+                                <TableCell align="left">{row.preface} {row.firstName} {row.lastName}</TableCell>
+                                <TableCell align="center">{row.number}</TableCell>
+                                <TableCell align="center">{row.grade}</TableCell>
+                                {userHaveToken && <TableCell align="center"><Button variant="contained" color="error" onClick={() => {handleDeleteStudentFromClub(row._id)}}>ลบ</Button></TableCell>}
+                                </TableRow>
+                            ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                )}
+
             </div>
 
 
