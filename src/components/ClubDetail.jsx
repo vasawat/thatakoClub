@@ -252,7 +252,7 @@ export default function ClubDetail(params) {
             </div>
 
 
-            <div className='flex flex-col justify-center items-center w-2/3'>
+            <div className={isMobile ? "flex flex-col justify-center items-center w-full px-3":"flex flex-col justify-center items-center w-2/3"}>
 
                 <Modal
                     open={openEditClub}
@@ -356,7 +356,6 @@ export default function ClubDetail(params) {
                             )}
                         </div>
                         <div className='flex p-2 gap-2'>
-                            <Button onClick={handleOpenStd} variant="contained" disabled={clubData.currentStudents >= clubData.maxStudents}>สมัครเข้าชุมนุม</Button>
                             {userHaveToken && (
                                 <>
                                     <Button onClick={handleOpenEditClub} variant="contained">แก้ไขชุมนุม</Button>
