@@ -66,7 +66,7 @@ export default function SelectClub(params) {
   }, []);
 
   return (
-    <div className="flex flex-col items-center text-white ">
+    <div className={isMobile ? "flex flex-col items-center text-white py-5" : "flex flex-col items-center text-white"} >
       <Modal
         open={open}
         onClose={handleClose}
@@ -106,8 +106,8 @@ export default function SelectClub(params) {
       </Modal>
 
 
-    <div className="my-10 flex justify-center">
-      <p className="text-3xl cursor-auto bg-dark text-light py-3 px-5 ">
+    <div className="m-5 flex justify-center">
+      <p className={isMobile ? "text-xl cursor-auto bg-dark text-light py-3 px-5 " : "text-3xl cursor-auto bg-dark text-light py-3 px-5"} >
         ชมรมทั้งหมดประจำปี 2567
       </p>
       {userHaveToken && (
