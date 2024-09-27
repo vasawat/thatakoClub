@@ -47,7 +47,7 @@ export default function ClubDetail(params) {
 
       const navigate = useNavigate();
 
-    const { allStudentNotHaveClub, getAllStudentDontHaveClub, userHaveToken, allTeacherNotHaveClub, getAllTeacherDontHaveClub } = useContext(StudentContext);
+    const { isMobile, allStudentNotHaveClub, getAllStudentDontHaveClub, userHaveToken, allTeacherNotHaveClub, getAllTeacherDontHaveClub } = useContext(StudentContext);
 
 
     const { clubID } = useParams();
@@ -239,7 +239,7 @@ export default function ClubDetail(params) {
 
 
     return (
-        <div className="w-full h-full grid place-items-center">
+        <div className={isMobile ? "w-full h-full grid place-items-center py-5":"w-full h-full grid place-items-center"}>
             <div className='text-center'>
                 <>
                     {clubData ? (

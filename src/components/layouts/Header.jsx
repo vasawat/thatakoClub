@@ -26,24 +26,36 @@ export default function Header(params) {
 
     const drawerContent = (
     <List>
-      <ListItem button component={Link} to="/">
-        <ListItemText primary="หน้าเเรก" />
-      </ListItem>
-      <ListItem button component={Link} to="/allStudentData">
-        <ListItemText primary="ดูข้อมูล" />
-      </ListItem>
-      <ListItem button component={Link} to="/fileUpload">
-        <ListItemText primary="อัปโหลดเอกสาร" />
-      </ListItem>
-      <ListItem button component={Link} to="/user/logout">
-        <ListItemText primary="ออกจากระบบ" />
-      </ListItem>
-      <ListItem button component={Link} to="/login">
-        <ListItemText primary="เข้าสู่ระบบ" />
-      </ListItem>
-      <ListItem button component={Link} to="/register">
-        <ListItemText primary="สมัครสมาชิก" />
-      </ListItem>
+
+      {userHaveToken ? (
+        <>
+        <ListItem button component={Link} to="/" onClick={toggleDrawer(false)}>
+          <ListItemText primary="หน้าเเรก" />
+        </ListItem>
+        <ListItem button component={Link} to="/allStudentData" onClick={toggleDrawer(false)}>
+          <ListItemText primary="ดูข้อมูล" />
+        </ListItem>
+        <ListItem button component={Link} to="/fileUpload" onClick={toggleDrawer(false)}>
+          <ListItemText primary="อัปโหลดเอกสาร" />
+        </ListItem>
+        <ListItem button component={Link} to="/user/logout" onClick={toggleDrawer(false)}>
+          <ListItemText primary="ออกจากระบบ" />
+        </ListItem>
+        <ListItem button component={Link} to="/register" onClick={toggleDrawer(false)}>
+          <ListItemText primary="สมัครสมาชิก" />
+        </ListItem>
+        </>
+      ):(
+        <>
+          <ListItem button component={Link} to="/" onClick={toggleDrawer(false)}>
+            <ListItemText primary="หน้าเเรก" />
+          </ListItem>
+          <ListItem button component={Link} to="/login" onClick={toggleDrawer(false)}>
+            <ListItemText primary="เข้าสู่ระบบ" />
+          </ListItem>
+        </>
+      )}
+
     </List>
   );
 

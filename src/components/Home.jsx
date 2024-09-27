@@ -17,7 +17,7 @@ export default function Home(params) {
             <p className="mb-2">
               สำหรับนักเรียนที่สนใจสมัครเข้าชมรม
               <br />
-              คลิกที่ลิงค์ด้านล่าง
+              คลิกที่ปุ่มเลือกชมรม
             </p>
             <Link to="/selectClub">
               <Button
@@ -30,14 +30,14 @@ export default function Home(params) {
             </Link>
           </div>
 
-            <div>
-              <img
-                src="https://iili.io/deDanUl.png"
-                id="imgHomePage"
-                width="200px"
-                alt=""
-              />
-            </div>
+          <div>
+            <img
+              src="https://iili.io/deDanUl.png"
+              id="imgHomePage"
+              width="200px"
+              alt=""
+            />
+          </div>
         </section>
         ):(
           <section className="flex flex-col lg:flex-row justify-center items-center space-y-4 lg:space-y-0 lg:space-x-8">
@@ -46,7 +46,7 @@ export default function Home(params) {
                 <p className="mb-5">
                   สำหรับนักเรียนที่สนใจสมัครเข้าชมรม
                   <br />
-                  คลิกที่ลิงค์ด้านล่าง
+                  คลิกที่ปุ่มเลือกชมรม
                 </p>
                 <Link to="/selectClub">
                   <Button

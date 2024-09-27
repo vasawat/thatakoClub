@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import axios from 'axios';
 import env from "../assets/enviroments";
 import { useForm } from "react-hook-form";
+
+import { StudentContext } from "../contexts/studentContext";
 
 import Swal from "sweetalert2";
 
@@ -20,9 +22,12 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import Autocomplete from '@mui/material/Autocomplete';
 
+
 import StudentPDF from "../components/widgets/studentPDF";
 
 export default function AllStudentData(params) {
+
+    const { isMobile } = useContext(StudentContext);
 
     let [loading, setLoading] = useState(true);
     let [studentName, setStudentName] = useState([]);
@@ -40,12 +45,24 @@ export default function AllStudentData(params) {
         position: "absolute",
         top: "50%",
         left: "50%",
+        width: '60%',
         transform: "translate(-50%, -50%)",
-        width: "60%",
         bgcolor: "background.paper",
         border: "2px solid #000",
         boxShadow: 24,
         p: 4,
+    };
+
+    const styleMobile = {
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        width: '80%',
+        transform: "translate(-50%, -50%)",
+        bgcolor: "background.paper",
+        border: "2px solid #000",
+        boxShadow: 24,
+        p: 2,
     };
 
     const handleOpenEdit = (data) => {
@@ -163,8 +180,9 @@ export default function AllStudentData(params) {
         
 
         <div className='flex flex-col justify-center items-center w-full h-full'>
-            <div className='w-2/3 flex bg-white p-4 align-middle justify-between'>
-                <div className='flex items-center gap-2'>
+
+            <div className={isMobile ? ('w-full bg-white p-4 text-sm'):('w-2/3 flex bg-white p-4 align-middle justify-between')}>
+                <div className={isMobile ? ('flex items-center gap-2 mb-2'):('flex items-center gap-2')} >
                     <Autocomplete
                         disablePortal
                         options={studentName}
@@ -199,73 +217,105 @@ export default function AllStudentData(params) {
                 </div>
                     
             </div>
-            <div className='w-2/3 overflow-auto'>
-                {
-                    showData.length === 0 ? 
-                    <TableContainer component={Paper} sx={{ height: 600, borderRadius: 0 }}>
-                        <Table stickyHeader aria-label="simple table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>ลำดับ</TableCell>
-                                    <TableCell align="center">คำนำหน้า</TableCell>
-                                    <TableCell align="center">ชื่อ</TableCell>
-                                    <TableCell align="center">นามสกุล</TableCell>
-                                    <TableCell align="center">รหัส</TableCell>
-                                    <TableCell align="center">เลขที่</TableCell>
-                                    <TableCell align="center">ระดับชั้น</TableCell>
-                                    <TableCell align="center">ชมรม</TableCell>
-                                    <TableCell align="center">แก้ไข</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody sx={{ height: 600 }}>
-                                <div className='flex justify-center items-center w-full h-full'>
-                                    <h1>ไม่พบข้อมูล</h1>
-                                </div>
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                    :
-                    <TableContainer component={Paper} sx={{ height: 600, borderRadius: 0 }}>
-                        <Table stickyHeader aria-label="simple table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>ลำดับ</TableCell>
-                                    <TableCell align="center">คำนำหน้า</TableCell>
-                                    <TableCell align="center">ชื่อ</TableCell>
-                                    <TableCell align="center">นามสกุล</TableCell>
-                                    <TableCell align="center">รหัส</TableCell>
-                                    <TableCell align="center">เลขที่</TableCell>
-                                    <TableCell align="center">ระดับชั้น</TableCell>
-                                    <TableCell align="center">ชมรม</TableCell>
-                                    <TableCell align="center">แก้ไข</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                            {showData.map((row, index) => (
-                                <TableRow
-                                    key={row._id}
-                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                >
-                                <TableCell >
-                                    {index + 1}
-                                </TableCell>
-                                <TableCell align="center">{row.preface}</TableCell>
-                                <TableCell align="center">{row.firstName}</TableCell>
-                                <TableCell align="center">{row.lastName}</TableCell>
-                                <TableCell align="center">{row.code}</TableCell>
-                                <TableCell align="center">{row.number}</TableCell>
-                                <TableCell align="center">{row.grade}</TableCell>
-                                <TableCell align="center">{row.club}</TableCell>
-                                <TableCell align="center" sx={{ cursor: "pointer" }}>
-                                    <Button sx={{ mr: 1 }} variant="contained" color="success" onClick={() => handleOpenEdit(row)}>แก้ไข</Button>
-                                    <Button variant="contained" color="error" onClick={() => {handleDelete(row._id)}}>ลบ</Button>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                }
+
+            <div className={isMobile ? ('w-full overflow-auto'):('w-2/3 overflow-auto')} >
+
+                    {isMobile ? (
+                        <>
+                            <TableContainer component={Paper} sx={{ height: 600, borderRadius: 0 }}>
+                                <Table stickyHeader aria-label="simple table">
+                                    {showData.length === 0  ? 
+                                        (
+                                            <TableBody sx={{ height: 600 }}>
+                                                <div className='flex justify-center items-center w-full h-full'>
+                                                    <h1>ไม่พบข้อมูล</h1>
+                                                </div>
+                                            </TableBody>
+                                        ):
+                                        (
+                                            <TableBody>
+                                            {showData.map((row, index) => (
+                                                <TableRow
+                                                    key={row._id}
+                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                >
+                                                <TableCell >
+                                                    ชื่อ: {row.preface} {row.firstName} {row.lastName} <br />
+                                                    รหัส: {row.code} <br />
+                                                    เลขที่: {row.number} <br />
+                                                    ระดับชั้น: {row.grade} <br />
+                                                    ชมรม: {row.club}
+                                                </TableCell>
+                                                <TableCell align="center" sx={{ cursor: "pointer", width: 20 }}>
+                                                    <Button sx={{mb: 1}} variant="contained" color="success" onClick={() => handleOpenEdit(row)}>แก้ไข</Button>
+                                                    <Button variant="contained" color="error" onClick={() => {handleDelete(row._id)}}>ลบ</Button>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))}
+                                            </TableBody>
+                                        )
+                                    }
+                                    
+                                </Table>
+                            </TableContainer>
+                        </>
+                    ):(
+                        <>
+                            <TableContainer component={Paper} sx={{ height: 600, borderRadius: 0 }}>
+                                <Table stickyHeader aria-label="simple table">
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>ลำดับ</TableCell>
+                                            <TableCell align="center">คำนำหน้า</TableCell>
+                                            <TableCell align="center">ชื่อ</TableCell>
+                                            <TableCell align="center">นามสกุล</TableCell>
+                                            <TableCell align="center">รหัส</TableCell>
+                                            <TableCell align="center">เลขที่</TableCell>
+                                            <TableCell align="center">ระดับชั้น</TableCell>
+                                            <TableCell align="center">ชมรม</TableCell>
+                                            <TableCell align="center">แก้ไข</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    {showData.length === 0  ? 
+                                        (
+                                            <TableBody sx={{ height: 600 }}>
+                                                <div className='flex justify-center items-center w-full h-full'>
+                                                    <h1>ไม่พบข้อมูล</h1>
+                                                </div>
+                                            </TableBody>
+                                        ):
+                                        (
+                                            <TableBody>
+                                            {showData.map((row, index) => (
+                                                <TableRow
+                                                    key={row._id}
+                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                >
+                                                <TableCell >
+                                                    {index + 1}
+                                                </TableCell>
+                                                <TableCell align="center">{row.preface}</TableCell>
+                                                <TableCell align="center">{row.firstName}</TableCell>
+                                                <TableCell align="center">{row.lastName}</TableCell>
+                                                <TableCell align="center">{row.code}</TableCell>
+                                                <TableCell align="center">{row.number}</TableCell>
+                                                <TableCell align="center">{row.grade}</TableCell>
+                                                <TableCell align="center">{row.club}</TableCell>
+                                                <TableCell align="center" sx={{ cursor: "pointer" }}>
+                                                    <Button sx={{ mr: 1 }} variant="contained" color="success" onClick={() => handleOpenEdit(row)}>แก้ไข</Button>
+                                                    <Button variant="contained" color="error" onClick={() => {handleDelete(row._id)}}>ลบ</Button>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))}
+                                            </TableBody>
+                                        )
+                                    }
+                                    
+                                </Table>
+                            </TableContainer>
+                        </>
+                    )}
+                    
                 
             </div>
 
@@ -277,19 +327,19 @@ export default function AllStudentData(params) {
             >
                 <Box
                 component="form"
-                sx={style}
+                sx={isMobile ? styleMobile : style}
                 noValidate
                 autoComplete="off"
                 onSubmit={handleSubmitEdit(onSubmitEdit)}
                 >
-                <p className="text-3xl cursor-auto bg-dark text-light py-3 px-5 text-white">
+                <p className={isMobile ? "text-md cursor-auto bg-dark text-light py-3 px-5 text-white" : "text-3xl cursor-auto bg-dark text-light py-3 px-5 text-white"}>
                     แก้ไข้ข้อมูลนักเรียน
                 </p>
-                <div className='grid grid-cols-2 gap-4'>
+                <div className={isMobile ? "grid grid-cols-1 gap-2" : "grid grid-cols-2 gap-4"}>
                     <TextField
                         {...editData("preface", { required: true })}
                         error={editErrors.preface ? true : false}
-                        sx={{ my: 4 }}
+                        sx={{ my: 2 }}
                         label="คำนำหน้า"
                         variant="outlined"
                         defaultValue={selectData.preface}
@@ -298,7 +348,7 @@ export default function AllStudentData(params) {
                     <TextField
                         {...editData("firstName", { required: true })}
                         error={editErrors.firstName ? true : false}
-                        sx={{ my: 4 }}
+                        sx={isMobile ? { mb: 2 } : { my: 2 }}
                         label="ชื่อ"
                         variant="outlined"
                         defaultValue={selectData.firstName}
@@ -307,7 +357,7 @@ export default function AllStudentData(params) {
                     <TextField
                         {...editData("lastName", { required: true })}
                         error={editErrors.lastName ? true : false}
-                        sx={{ mb: 4 }}
+                        sx={{ mb: 2 }}
                         label="นามสกุล"
                         variant="outlined"
                         defaultValue={selectData.lastName}
@@ -316,7 +366,7 @@ export default function AllStudentData(params) {
                     <TextField
                         {...editData("code", { required: true })}
                         error={editErrors.code ? true : false}
-                        sx={{ mb: 4 }}
+                        sx={{ mb: 2 }}
                         label="รหัสนักเรียน"
                         variant="outlined"
                         defaultValue={selectData.code}
@@ -325,7 +375,7 @@ export default function AllStudentData(params) {
                     <TextField
                         {...editData("number", { required: true })}
                         error={editErrors.number ? true : false}
-                        sx={{ mb: 4 }}
+                        sx={{ mb: 2 }}
                         label="เลขที่"
                         variant="outlined"
                         defaultValue={selectData.number}
@@ -334,7 +384,7 @@ export default function AllStudentData(params) {
                     <TextField
                         {...editData("grade", { required: true })}
                         error={editErrors.grade ? true : false}
-                        sx={{ mb: 4 }}
+                        sx={{ mb: 2 }}
                         label="ระดับชั้น"
                         variant="outlined"
                         defaultValue={selectData.grade}

@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState, useContext} from 'react'
 import axios from "axios";
 import env from "../assets/enviroments";
 import * as XLSX from "xlsx";
@@ -10,6 +10,8 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+
+import { StudentContext } from "../contexts/studentContext";
 
 import Swal from 'sweetalert2';
 
@@ -28,6 +30,8 @@ const VisuallyHiddenInput = styled('input')({
 
 
 export default function FileUpload(params) {
+
+    const { isMobile } = useContext(StudentContext);
 
     let [file, setFile] = useState([]);
     let [fileTeacher, setFileTeacher] = useState([]);
@@ -109,14 +113,16 @@ export default function FileUpload(params) {
             >
                 <CircularProgress color="inherit" />
             </Backdrop>
-            <div className='grid place-items-center gap-10'>
+            <div className={isMobile ? ('grid place-items-center gap-10 text-sm'):('grid place-items-center gap-10')} >
 
-                <div className='flex gap-10'>     
 
-                    <div className='bg-slate-200 p-5 rounded '>
-                        <div className='flex gap-10'>
-                            <Button onClick={handleDownloadTemplate} variant="contained">Dowload Template</Button>
+                <div className='flex gap-10 px-2'>     
+
+                    <div className={isMobile ? ('bg-slate-200 p-2 rounded'):('bg-slate-200 p-5 rounded')}>
+                        <div className={isMobile ? ('flex gap-3'):('flex gap-10')} >
+                            <Button onClick={handleDownloadTemplate} variant="contained" sx={isMobile ? ({fontSize: '10px'}):({})}>Dowload Template</Button>
                             <Button
+                            sx={isMobile ? ({fontSize: '10px'}):({})}
                                 component="label"
                                 variant="contained"
                                 tabIndex={-1}
@@ -131,7 +137,7 @@ export default function FileUpload(params) {
                                     multiple
                                 />
                             </Button>
-                            <Button onClick={handleUpload} variant="contained">Upload</Button>
+                            <Button sx={isMobile ? ({fontSize: '10px'}):({})} onClick={handleUpload} variant="contained">Upload</Button>
                         </div>
 
                         {file?.name && 
@@ -145,11 +151,10 @@ export default function FileUpload(params) {
                     </div>
                 </div>
                 
-
-
-                <div className='bg-slate-500 p-5 rounded '>
-                    <div className='flex gap-10'>
+                <div className={isMobile ? ('bg-slate-500 p-2 rounded '):('bg-slate-500 p-5 rounded ')} >
+                    <div className={isMobile ? ('flex gap-3'):('flex gap-10')}>
                         <Button
+                        sx={isMobile ? ({fontSize: '10px'}):({})}
                             component="label"
                             variant="contained"
                             tabIndex={-1}
@@ -164,7 +169,7 @@ export default function FileUpload(params) {
                                 multiple
                             />
                         </Button>
-                        <Button onClick={handleUploadTeacher} variant="contained">Upload</Button>
+                        <Button sx={isMobile ? ({fontSize: '10px'}):({})} onClick={handleUploadTeacher} variant="contained">Upload</Button>
                     </div>
 
                     {fileTeacher?.name && 
