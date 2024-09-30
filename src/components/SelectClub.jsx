@@ -7,7 +7,7 @@ import TextField from "@mui/material/TextField";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import env from "../assets/enviroments";
-
+import Swal from "sweetalert2";
 // import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Link } from "react-router-dom";
 
@@ -55,14 +55,27 @@ export default function SelectClub(params) {
   const onSubmit = (data) => {
     handleClose();
     console.log(data);
-    axios.post(env.apiUrl +"/club/create", { ...data });
+    axios.post(env.apiUrl +"/club/create", { ...data }).than((res) => {
+      if (res.status === 200) {
+        Swal.fire({
+          title: "สร้างชมรมสําเร็จ",
+          text: "ชมรมของคุณได้ถูกสร้างเรียบร้อยแล้ว",
+          icon: "success",
+          confirmButtonText: "ตกลง",
+        });
+        getAllClub();
+      }
+    })
   };
 
-  useEffect(() => {
+  const getAllClub = () => {
     axios.get(env.apiUrl +"/club/getAllClubs").then((response) => {
       setAllClubs(response.data);
-      console.log(response.data);
     });
+  }
+
+  useEffect(() => {
+    getAllClub();
   }, []);
 
   return (
