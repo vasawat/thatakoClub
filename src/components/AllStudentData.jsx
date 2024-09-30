@@ -32,7 +32,7 @@ export default function AllStudentData(params) {
 
     let [loading, setLoading] = useState(true);
     let [studentName, setStudentName] = useState([]);
-    let [grade, setGrade] = useState();
+    let [grade, setGrade] = useState([]);
     let [searchStudent, setSearchStudent] = useState("");
     let [searchGrade, setSearchGrade] = useState("");
     let [showData, setShowData] = useState([]);
