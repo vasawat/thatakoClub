@@ -162,7 +162,14 @@ export default function AllStudentData(params) {
     
     useEffect(() => {
         getAllData();
-        setGrade(['ม.1/1', 'ม.1/6']);
+        setGrade([
+            'ม.1/1', 'ม.1/2', 'ม.1/3', 'ม.1/4', 'ม.1/5', 'ม.1/6', 'ม.1/7', 'ม.1/8', 'ม.1/9',
+            'ม.2/1', 'ม.2/2', 'ม.2/3', 'ม.2/4', 'ม.2/5', 'ม.2/6', 'ม.2/7', 'ม.2/8', 'ม.2/9',
+            'ม.3/1', 'ม.3/2', 'ม.3/3', 'ม.3/4', 'ม.3/5', 'ม.3/6', 'ม.3/7', 'ม.3/8', 'ม.3/9',
+            'ม.4/1', 'ม.4/2', 'ม.4/3', 'ม.4/4', 'ม.4/5', 'ม.4/6', 'ม.4/7', 'ม.4/8', 'ม.4/9',
+            'ม.5/1', 'ม.5/2', 'ม.5/3', 'ม.5/4', 'ม.5/5', 'ม.5/6', 'ม.5/7', 'ม.5/8', 'ม.5/9',
+            'ม.6/1', 'ม.6/2', 'ม.6/3', 'ม.6/4', 'ม.6/5', 'ม.6/6', 'ม.6/7', 'ม.6/8', 'ม.6/9'
+        ]);
     // eslint-disable-next-line    
     }, []);
 
@@ -381,7 +388,7 @@ export default function AllStudentData(params) {
                         defaultValue={selectData.number}
                         fullWidth
                     />
-                    <TextField
+                    {/* <TextField
                         {...editData("grade", { required: true })}
                         error={editErrors.grade ? true : false}
                         sx={{ mb: 2 }}
@@ -389,7 +396,20 @@ export default function AllStudentData(params) {
                         variant="outlined"
                         defaultValue={selectData.grade}
                         fullWidth
-                    />
+                    /> */}
+                    <TextField
+                        {...editData("grade", { required: true })}
+                        id="outlined-select-grade"
+                        select
+                        label="ระดับชั้น"
+                        defaultValue="ม.1/1"
+                        >
+                        {grade.map((gradeOption) => (
+                            <MenuItem key={gradeOption} value={gradeOption}>
+                            {gradeOption}
+                            </MenuItem>
+                        ))}
+                    </TextField>
                 </div>
 
                 <Button type="submit" variant="contained">
