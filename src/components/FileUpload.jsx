@@ -55,6 +55,7 @@ export default function FileUpload(params) {
         .then(response => {
             setLoading(false);
             console.log(response.data);
+            setFile([]);
             Swal.fire("อัปโหลดสําเร็จ", "", "success");
         })
         .catch(error => {
@@ -82,13 +83,14 @@ export default function FileUpload(params) {
         .then(response => {
             setLoading(false);
             console.log(response.data);
+            setFileTeacher([]);
             Swal.fire("อัปโหลดสําเร็จ", "", "success");
         })
         .catch(error => {
             setLoading(false);
             console.error("There was an error uploading the file!", error);
             Swal.fire("อัปโหลดไม่สําเร็จ", "", "error");
-            setFile([]);
+            setFileTeacher([]);
         });
     };
 
