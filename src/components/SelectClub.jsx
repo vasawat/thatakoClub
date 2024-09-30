@@ -54,8 +54,8 @@ export default function SelectClub(params) {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = (data) => {
     handleClose();
-    console.log(data);
     axios.post(env.apiUrl +"/club/create", { ...data }).than((res) => {
+      console.log(res);
       if (res.status === 200) {
         Swal.fire({
           title: "สร้างชมรมสําเร็จ",
