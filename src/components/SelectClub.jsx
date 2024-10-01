@@ -43,8 +43,8 @@ export default function SelectClub(params) {
     axios.post(env.apiUrl +"/club/create", { ...data }).then((res) => {
       if (res.status === 200) {
         Swal.fire({
-          title: "สร้างชมรมสําเร็จ",
-          text: "ชมรมของคุณได้ถูกสร้างเรียบร้อยแล้ว",
+          title: "สร้างชุมนุมสําเร็จ",
+          text: "ชุมนุมของคุณได้ถูกสร้างเรียบร้อยแล้ว",
           icon: "success",
           confirmButtonText: "ตกลง",
         });
@@ -79,13 +79,13 @@ export default function SelectClub(params) {
           onSubmit={handleSubmit(onSubmit)}
         >
           <p className="text-3xl cursor-auto bg-dark text-light py-3 px-5 text-white">
-            เพิ่มชมรม
+            เพิ่มชุมนุม
           </p>
           <TextField
             {...register("clubName", { required: true })}
             error={errors.clubName ? true : false}
             sx={{ my: 4 }}
-            label="ชื่อชมรม"
+            label="ชื่อชุมนุม"
             variant="outlined"
             fullWidth
           />
@@ -106,11 +106,11 @@ export default function SelectClub(params) {
 
     <div className="m-5 flex justify-center">
       <p className={isMobile ? "text-xl cursor-auto bg-dark text-light py-3 px-5 " : "text-3xl cursor-auto bg-dark text-light py-3 px-5"} >
-        ชมรมทั้งหมดประจำปี 2567
+        ชุมนุมทั้งหมดประจำปี 2567
       </p>
       {userHaveToken && (
         <Button onClick={handleOpen} variant="contained" sx={{ background: "green", '&:hover': { background: 'darkgreen' } }} >
-          เพิ่มชมรม
+          เพิ่มชุมนุม
         </Button>
       )}
     </div>

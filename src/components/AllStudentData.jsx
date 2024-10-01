@@ -252,7 +252,7 @@ export default function AllStudentData(params) {
                                                     รหัส: {row.code} <br />
                                                     เลขที่: {row.number} <br />
                                                     ระดับชั้น: {row.grade} <br />
-                                                    ชมรม: {row.club}
+                                                    ชุมนุม: {row.club}
                                                 </TableCell>
                                                 <TableCell align="center" sx={{ cursor: "pointer", width: 20 }}>
                                                     <Button sx={{mb: 1}} variant="contained" color="success" onClick={() => handleOpenEdit(row)}>แก้ไข</Button>
@@ -280,7 +280,7 @@ export default function AllStudentData(params) {
                                             <TableCell align="center">รหัส</TableCell>
                                             <TableCell align="center">เลขที่</TableCell>
                                             <TableCell align="center">ระดับชั้น</TableCell>
-                                            <TableCell align="center">ชมรม</TableCell>
+                                            <TableCell align="center">ชุมนุม</TableCell>
                                             <TableCell align="center">แก้ไข</TableCell>
                                         </TableRow>
                                     </TableHead>

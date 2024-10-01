@@ -26,7 +26,7 @@ export default function AddStudentForm(params) {
                     <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h5 class="modal-title text-dark" id="addInfoModalLabel">กรอกข้อมูลเลือกชมรม</h5>
+                        <h5 class="modal-title text-dark" id="addInfoModalLabel">กรอกข้อมูลเลือกชุมนุม</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -34,7 +34,7 @@ export default function AddStudentForm(params) {
                         <TextField {...register("studentName")} sx={{ my:4}} label="ชื่อ-นามสกุล:" variant="outlined" fullWidth />
                         <TextField {...register("studentId")} sx={{ my:4}} label="รหัสนักเรียน:" variant="outlined" fullWidth />
                         <TextField {...register("studentNumber")} sx={{ my:4}} label="เลขที่นักเรียน:" variant="outlined" fullWidth />
-                        <TextField {...register("clubType")} sx={{ my:4}} label="เลือกชมรม:" variant="outlined" 
+                        <TextField {...register("clubType")} sx={{ my:4}} label="เลือกชุมนุม:" variant="outlined" 
                         slotProps={{
                             input: {
                             readOnly: true,

@@ -81,14 +81,14 @@ export default function ClubDetail(params) {
                 getDataThisClub();
                 Swal.fire({
                     icon: 'success',
-                    title: 'แก้ไขชมรมสําเร็จ',
+                    title: 'แก้ไขชุมนุมสําเร็จ',
                     showConfirmButton: false,
                     timer: 1500
                 });
             }else {
                 Swal.fire({
                     icon: 'error',
-                    title: 'แก้ไขชมรมไม่สําเร็จ',
+                    title: 'แก้ไขชุมนุมไม่สําเร็จ',
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -104,14 +104,14 @@ export default function ClubDetail(params) {
                 getAllStudentDontHaveClub();
                 Swal.fire({
                     icon: 'success',
-                    title: 'เลือกชมรมสําเร็จ',
+                    title: 'เลือกชุมนุมสําเร็จ',
                     showConfirmButton: false,
                     timer: 1500
                 });
             }else {
                 Swal.fire({
                     icon: 'error',
-                    title: 'เลือกชมรมไม่สําเร็จ',
+                    title: 'เลือกชุมนุมไม่สําเร็จ',
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -127,14 +127,14 @@ export default function ClubDetail(params) {
                 getAllTeacherDontHaveClub();
                 Swal.fire({
                     icon: 'success',
-                    title: 'เลือกชมรมสําเร็จ',
+                    title: 'เลือกชุมนุมสําเร็จ',
                     showConfirmButton: false,
                     timer: 1500
                 });
             }else {
                 Swal.fire({
                     icon: 'error',
-                    title: 'เลือกชมรมไม่สําเร็จ',
+                    title: 'เลือกชุมนุมไม่สําเร็จ',
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -238,14 +238,14 @@ export default function ClubDetail(params) {
                     {clubData ? (
                         <>
                             <p className="textForTopicClub btn btn-dark btn-lg text-light px-4">
-                                <span className="text-white">ชมรม {clubData.clubName}</span>
+                                <span className="text-white">ชุมนุม {clubData.clubName}</span>
                             </p>
                             <p>
-                                นักเรียนในชมรม {clubData.currentStudents} คน เต็ม {clubData.maxStudents} คน
+                                นักเรียนในชุมนุม {clubData.currentStudents} คน เต็ม {clubData.maxStudents} คน
                             </p>
                         </>
                     ) : (
-                        <p>กำลังโหลดข้อมูลชมรม...</p>
+                        <p>กำลังโหลดข้อมูลชุมนุม...</p>
                     )}
                 </>
 
@@ -392,7 +392,7 @@ export default function ClubDetail(params) {
                     <Table  aria-label="simple table">
                         <TableHead>
                         <TableRow>
-                            <TableCell align="left">ครูประจำชมรม</TableCell>
+                            <TableCell align="left">ครูประจำชุมนุม</TableCell>
                             {userHaveToken && <TableCell align="center"></TableCell>}
                         </TableRow>
                         </TableHead>
