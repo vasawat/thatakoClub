@@ -13,7 +13,7 @@ export default function Home(params) {
       {isMobile ? (
         <section className="flex flex-col lg:flex-row justify-center items-center space-y-4 lg:space-y-0 lg:space-x-8 text-center">
           <div className="text-white">
-            <p className="text-2xl">เลือกชุมนุมปี 2567</p>
+            <p className="text-2xl mb-2">เลือกชุมนุมปี 2567</p>
             <p className="mb-2">
               สำหรับนักเรียนที่สนใจสมัครเข้าชุมนุม
               <br />
@@ -42,7 +42,7 @@ export default function Home(params) {
         ):(
           <section className="flex flex-col lg:flex-row justify-center items-center space-y-4 lg:space-y-0 lg:space-x-8">
               <div className="text-white">
-                <p className="text-5xl">เลือกชุมนุมปี 2567</p>
+                <p className="text-5xl mb-2">เลือกชุมนุมปี 2567</p>
                 <p className="mb-5">
                   สำหรับนักเรียนที่สนใจสมัครเข้าชุมนุม
                   <br />
