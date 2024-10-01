@@ -331,8 +331,7 @@ export default function ClubDetail(params) {
                             }}
                             renderInput={(params) => <TextField {...params} label="นักเรียน" />}
                         />
-                        <p className='text-sm text-[red]'>* หากนักเรียนเลือกแล้ว จะไม่สามารถเปลี่ยนชมรมได้</p>
-                        <p className='text-sm text-[red]'>* มีปัญหาติดต่อครู xxx</p>
+                        <p className='text-sm text-[red]'>* หากเลือกนักเรียนผิดติดต่อครูแอน</p>
                         <Button type="submit" variant="contained">บันทึก</Button>
                     </Box>
                 </Modal>
