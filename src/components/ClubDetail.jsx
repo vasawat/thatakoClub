@@ -232,7 +232,7 @@ export default function ClubDetail(params) {
 
 
     return (
-        <div className={isMobile ? "w-full h-full grid place-items-center py-5":"w-full h-full grid place-items-center"}>
+        <div className={isMobile ? "w-full h-full grid place-items-center py-5":"w-full h-full grid place-items-center py-5"}>
             <div className='text-center'>
                 <>
                     {clubData ? (
