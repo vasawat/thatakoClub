@@ -8,18 +8,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import env from "../assets/enviroments";
 import Swal from "sweetalert2";
-// import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Link } from "react-router-dom";
-
-
-// import Table from '@mui/material/Table';
-// import { styled } from '@mui/material/styles';
-// import TableBody from '@mui/material/TableBody';
-// import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-// import TableContainer from '@mui/material/TableContainer';
-// import TableHead from '@mui/material/TableHead';
-// import TableRow from '@mui/material/TableRow';
-// import Paper from '@mui/material/Paper';
 
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -129,32 +118,34 @@ export default function SelectClub(params) {
       )}
     </div>
 
-    <div className={isMobile ? "grid place-items-center gap-2" : "grid place-items-center grid-cols-2 gap-4 mb-10"}>
+    <div className={isMobile ? "grid place-items-center gap-2 " : "grid place-items-center grid-cols-2 gap-4 mb-10 "} style={{ color: "black" }}> 
       {allClubs.map((club) => (
-        <Card sx={ isMobile ? { width: 300 } : { width: 400 } } key={club._id}>
-          <CardContent>
-            <div className="flex justify-between items-center">
-              <div className="flex gap-2 items-center">
-                <div className={club.currentStudents >= club.maxStudents ? "w-3 h-3 rounded-full bg-red-500" : "w-3 h-3 rounded-full bg-green-500"}></div>
+        <div key={club._id} className={isMobile ? "w-80" : "w-96 p-3 rounded "} style={{ backgroundColor: "#DEDAD5" }}>
+          <div className="p-5 rounded" style={{ backgroundColor: "#DEDAD5", border: "3px solid black" }}>
+                      <div className="flex justify-between items-center ">
+                        <div className="flex gap-2 items-center">
+                          <div className={club.currentStudents >= club.maxStudents ? "w-3 h-3 rounded-full bg-red-500" : "w-3 h-3 rounded-full bg-green-500"}></div>
+                            <div className={isMobile ? "text-sm" : "text-xl"}>
+                              {club.name}
+                            </div>
+                        </div>
+                        
 
-                <div className={isMobile ? "text-sm" : "text-xl"}>
-                  {club.name}
-                </div>
-              </div>
-              
-              <CardActions>
-                <Button size={isMobile ? "small" : "medium"}><Link to={`/clubDetail/${club._id}`}>ดูเพิ่มเติม</Link></Button>
-              </CardActions>
-            </div>
+                          <Button size={isMobile ? "small" : "medium"} color="dark" variant="outlined"><Link to={`/clubDetail/${club._id}`}>ดูเพิ่มเติม</Link></Button>
+
+                      </div>
+                      
+                      <div className={isMobile ? "text-sm" : "text-sm"}>
+                        ปัจจุบัน {club.currentStudents} / {club.maxStudents} คน
+                      </div>
+          </div>
             
-            <div className={isMobile ? "text-sm" : "text-sm"}>
-              ปัจจุบัน {club.currentStudents} คน / {club.maxStudents} คน
-            </div>
-          </CardContent>
 
-        </Card>
+        </div>
       ))}
+
     </div>
+
 
 
 

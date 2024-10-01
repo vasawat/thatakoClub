@@ -15,12 +15,12 @@ export default function Footer(params) {
           <div className="flex flex-col lg:flex-row justify-center items-center space-y-1">
             <div className="lg:w-1/3 grid place-items-center">
               <p className="text-light flex items-center gap-2">
-                <i className="ri-phone-line"></i> 077-777-7777
+                <i className="ri-phone-line"></i> 089-459-8602
               </p>
             </div>
             <div className="lg:w-1/3 grid place-items-center">
               <p className="text-light flex items-center gap-2">
-                <i className="ri-mail-line"></i> ท่าตะโกพิทยาคม@gmail.com
+                <i className="ri-mail-line"></i> piyathida@gmail.com
               </p>
             </div>
           </div>
@@ -32,17 +32,17 @@ export default function Footer(params) {
           <div className="flex flex-col lg:flex-row justify-center items-center space-y-4 lg:space-y-0 lg:space-x-8">
             <div className="lg:w-1/3 grid place-items-center">
               <p className="text-light flex items-center gap-2">
-                <i className="ri-phone-line"></i> 077-777-7777
+                <i className="ri-home-4-line"></i> มีปัญหาติดต่อครู ปิยะธิดา ประภาชัยมงคล
               </p>
             </div>
             <div className="lg:w-1/3 grid place-items-center">
               <p className="text-light flex items-center gap-2">
-                <i className="ri-mail-line"></i> ท่าตะโกพิทยาคม@gmail.com
+                <i className="ri-phone-line"></i> 089-459-8602
               </p>
             </div>
             <div className="lg:w-1/3 grid place-items-center">
               <p className="text-light flex items-center gap-2">
-                <i className="ri-home-4-line"></i> address ท่าตะโกพิทยาคม
+                <i className="ri-mail-line"></i> piyathida@gmail.com
               </p>
             </div>
           </div>
