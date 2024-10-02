@@ -128,7 +128,7 @@ export default function SelectClub(params) {
                         </div>
                         
 
-                          <Button size={isMobile ? "small" : "medium"} color="dark" variant="outlined"><Link to={`/clubDetail/${club._id}`}>ดูเพิ่มเติม</Link></Button>
+                          <Link to={`/clubDetail/${club._id}`}><Button size={isMobile ? "small" : "medium"} color="dark" variant="outlined">ดูเพิ่มเติม</Button></Link>
 
                       </div>
                       
