@@ -117,7 +117,7 @@ export default function SelectClub(params) {
 
     <div className={isMobile ? "grid place-items-center gap-2 " : "grid place-items-center grid-cols-2 gap-4 mb-10 "} style={{ color: "black" }}> 
       {allClubs.map((club) => (
-        <div key={club._id} className={isMobile ? "w-80" : "w-96 p-3 rounded "} style={{ backgroundColor: "#DEDAD5" }}>
+        <div key={club._id} className={isMobile ? "w-80 p-2 rounded" : "w-96 p-3 rounded "} style={{ backgroundColor: "#DEDAD5" }}>
           <div className="p-5 rounded" style={{ backgroundColor: "#DEDAD5", border: "3px solid black" }}>
                       <div className="flex justify-between items-center ">
                         <div className="flex gap-2 items-center">
