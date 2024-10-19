@@ -32,7 +32,7 @@ export default function Home(params) {
 
           <div>
             <img
-              src="https://iili.io/deDanUl.png"
+              src="/thatako.png"
               id="imgHomePage"
               width="200px"
               alt=""
@@ -61,7 +61,7 @@ export default function Home(params) {
 
               <div>
                 <img
-                  src="https://iili.io/deDanUl.png"
+                  src="/thatako.png"
                   id="imgHomePage"
                   width="550px"
                   alt=""
