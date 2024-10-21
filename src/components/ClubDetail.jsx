@@ -245,7 +245,6 @@ export default function ClubDetail(params) {
             <Backdrop
                 sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
                 open={loading}
-                onClick={() => setLoading(false)}
             >
                 <CircularProgress color="inherit" />
             </Backdrop>
