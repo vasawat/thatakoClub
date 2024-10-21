@@ -26,6 +26,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Autocomplete from '@mui/material/Autocomplete';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const style = {
@@ -51,6 +53,8 @@ export default function ClubDetail(params) {
 
 
     const { clubID } = useParams();
+
+    const [loading, setLoading] = useState(false);
 
     const [clubData, setClubData] = useState({});
     const [stdData, setStdData] = useState([]);
@@ -214,11 +218,14 @@ export default function ClubDetail(params) {
     }
 
     const getDataThisClub = () => {
+        setLoading(true);
         axios.post(env.apiUrl +`/club/getUserByClub/${clubID}`).then((response) => {
-            setClubData(response.data.clubData);
-            setStdData(response.data.student);
-            setTeacherData(response.data.teacher);
-            console.log(response.data);
+            if (response.status === 200) {
+                setClubData(response.data.clubData);
+                setStdData(response.data.student);
+                setTeacherData(response.data.teacher);
+                setLoading(false);
+            }
         });
     };
 
@@ -233,6 +240,16 @@ export default function ClubDetail(params) {
 
     return (
         <div className={isMobile ? "w-full h-full grid place-items-center py-5":"w-full h-full grid place-items-center py-5"}>
+            <div>
+                <Button onClick={handleOpen}>Show backdrop</Button>
+                <Backdrop
+                    sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+                    open={open}
+                    onClick={handleClose}
+                >
+                    <CircularProgress color="inherit" />
+                </Backdrop>
+            </div>
             <div className='text-center'>
                 <>
                     {clubData ? (
