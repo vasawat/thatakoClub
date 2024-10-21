@@ -241,11 +241,10 @@ export default function ClubDetail(params) {
     return (
         <div className={isMobile ? "w-full h-full grid place-items-center py-5":"w-full h-full grid place-items-center py-5"}>
             <div>
-                <Button onClick={handleOpen}>Show backdrop</Button>
                 <Backdrop
                     sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
                     open={open}
-                    onClick={handleClose}
+                    onClick={() => setLoading(false)}
                 >
                     <CircularProgress color="inherit" />
                 </Backdrop>
