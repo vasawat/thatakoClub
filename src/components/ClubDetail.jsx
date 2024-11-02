@@ -362,7 +362,7 @@ export default function ClubDetail(params) {
                                         {stdData.length > 0 ? (
                                         <ClubPDF data={stdData} teacherData={teacherData} clubName={clubData.clubName}/>
                                         ) : (
-                                        <p>กำลังโหลดข้อมูล...</p>
+                                        <p>ไม่มีข้อมูล...</p>
                                         )}
                                     </div>
                                 </>
@@ -383,18 +383,18 @@ export default function ClubDetail(params) {
                     <>
                         <div className='flex p-4 gap-4'>
                             <Button onClick={handleOpenStd} variant="contained" disabled={clubData.currentStudents >= clubData.maxStudents}>สมัครเข้าชุมนุม</Button>
+                            <div>
+                                {stdData.length > 0 ? (
+                                <ClubPDF data={stdData} teacherData={teacherData} clubName={clubData.clubName}/>
+                                ) : (
+                                <p>ไม่มีข้อมูล...</p>
+                                )}
+                            </div>
                             {userHaveToken && (
                                 <>
                                     <Button onClick={handleOpenTeacher} variant="contained">เพิ่มครู</Button>
                                     <Button onClick={handleOpenEditClub} variant="contained">แก้ไขชุมนุม</Button>
                                     <Button onClick={handleDeleteClub} variant="contained" color="error">ลบชุมนุม</Button>
-                                    <div>
-                                        {stdData.length > 0 ? (
-                                        <ClubPDF data={stdData} teacherData={teacherData} clubName={clubData.clubName}/>
-                                        ) : (
-                                        <p>กำลังโหลดข้อมูล...</p>
-                                        )}
-                                    </div>
                                 </>
                                 
                             )}
